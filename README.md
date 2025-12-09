@@ -142,13 +142,15 @@ contribute:
 
 ## ✨ Contributors
 
-#### Thanks to all the wonderful contributors 💖
+Thanks to all the wonderful contributors who help make BYAMN Learning better every day! 💖
 
-`<a href="https://github.com/DYHARDx/BYAMN-Learning/graphs/contributors">`{=html}
-`<img src="https://contrib.rocks/image?repo=DYHARDx/BYAMN-Learning" />`{=html}
-`</a>`{=html}
+<a href="https://github.com/DYHARDx/BYAMN-Learning/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=DYHARDx/BYAMN-Learning" />
+</a>
 
-#### See full list of contributor contribution [Contribution Graph](https://github.com/DYHARDx/BYAMN-Learning/graphs/contributors)
+You can explore contribution history here:  
+**[View Contribution Graph](https://github.com/DYHARDx/BYAMN-Learning/graphs/contributors)**
+
 
 ## License
 
