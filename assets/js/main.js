@@ -31,7 +31,7 @@ class LanguageDetector {
             'ar': 'العربية',
             'hi': 'हिन्दी'
         };
-        
+
         this.welcomeMessages = {
             'en': 'Welcome! Start your journey today.',
             'es': '¡Bienvenido! Comienza tu viaje hoy.',
@@ -46,43 +46,43 @@ class LanguageDetector {
             'ar': 'مرحبًا! ابدأ رحلتك اليوم.',
             'hi': 'स्वागत है! आज ही अपनी यात्रा शुरू करें।'
         };
-        
+
         this.defaultLanguage = 'en';
         this.currentLanguage = this.detectLanguage();
     }
-    
+
     // Auto-detect browser language
     detectLanguage() {
         let browserLang = navigator.language || navigator.userLanguage;
-        
+
         // Extract language code (e.g., "en-US" -> "en")
         if (browserLang && browserLang.includes('-')) {
             browserLang = browserLang.split('-')[0];
         }
-        
+
         // Check if detected language is supported
         if (browserLang && this.supportedLanguages[browserLang]) {
             return browserLang;
         }
-        
+
         // Check for language variations
         if (browserLang === 'zh-CN' || browserLang === 'zh-TW') {
             return 'zh';
         }
-        
+
         return this.defaultLanguage;
     }
-    
+
     // Get welcome message in user's language
     getWelcomeMessage() {
         return this.welcomeMessages[this.currentLanguage] || this.welcomeMessages[this.defaultLanguage];
     }
-    
+
     // Get all supported languages
     getSupportedLanguages() {
         return this.supportedLanguages;
     }
-    
+
     // Set language manually
     setLanguage(langCode) {
         if (this.supportedLanguages[langCode]) {
@@ -93,7 +93,7 @@ class LanguageDetector {
         }
         return false;
     }
-    
+
     // Save language preference to localStorage
     saveLanguagePreference() {
         try {
@@ -102,7 +102,7 @@ class LanguageDetector {
             console.warn('Could not save language preference:', e);
         }
     }
-    
+
     // Load saved language preference
     loadLanguagePreference() {
         try {
@@ -116,7 +116,7 @@ class LanguageDetector {
         }
         return false;
     }
-    
+
     // Apply language to the page
     applyLanguage() {
         // Update welcome message if element exists
@@ -124,42 +124,42 @@ class LanguageDetector {
         if (welcomeElement) {
             welcomeElement.textContent = this.getWelcomeMessage();
         }
-        
+
         // Update page title based on language
         this.updatePageTitle();
-        
+
         // Dispatch event for other components to update
         document.dispatchEvent(new CustomEvent('languageChanged', {
             detail: { language: this.currentLanguage }
         }));
-        
+
         // Log language detection activity
         this.logLanguageDetection();
     }
-    
+
     // Update page title based on language
     updatePageTitle() {
         const titles = {
-            'en': 'Welcome to Our Platform',
-            'es': 'Bienvenido a Nuestra Plataforma',
-            'fr': 'Bienvenue sur Notre Plateforme',
-            'de': 'Willkommen auf unserer Plattform',
-            'it': 'Benvenuto nella Nostra Piattaforma',
-            'pt': 'Bem-vindo à Nossa Plataforma',
-            'ru': 'Добро пожаловать на нашу платформу',
-            'zh': '欢迎来到我们的平台',
-            'ja': '私たちのプラットフォームへようこそ',
-            'ko': '우리 플랫폼에 오신 것을 환영합니다',
-            'ar': 'مرحبًا بك في منصتنا',
-            'hi': 'हमारे प्लेटफ़ॉर्म में आपका स्वागत है'
+            'en': 'BYAMN: Free Courses & Verified Certificates',
+            'es': 'BYAMN: Cursos Gratuitos y Certificados Verificados',
+            'fr': 'BYAMN: Cours Gratuits et Certificats Vérifiés',
+            'de': 'BYAMN: Kostenlose Kurse und verifizierte Zertifikate',
+            'it': 'BYAMN: Corsi Gratuiti e Certificati Verificati',
+            'pt': 'BYAMN: Cursos Gratuitos e Certificados Verificados',
+            'ru': 'BYAMN: Бесплатные курсы и проверенные сертификаты',
+            'zh': 'BYAMN：免费课程和经过验证的证书',
+            'ja': 'BYAMN：無料コースと認定済み証明서',
+            'ko': 'BYAMN: 무료 강좌 및 인증된 수료증',
+            'ar': 'BYAMN: دورات مجانية وشهادات موثقة',
+            'hi': 'BYAMN: मुफ्त पाठ्यक्रम और सत्यापित प्रमाणपत्र'
         };
-        
+
         const title = titles[this.currentLanguage] || titles[this.defaultLanguage];
         if (title && document.title.includes('Welcome')) {
             document.title = title;
         }
     }
-    
+
     // Log language detection for analytics
     logLanguageDetection() {
         const activityData = {
@@ -170,17 +170,17 @@ class LanguageDetector {
         };
         logActivity(activityData);
     }
-    
+
     // Initialize language system
     initialize() {
         // Load saved preference first
         const hasSavedPref = this.loadLanguagePreference();
-        
+
         // If no saved preference, auto-detect
         if (!hasSavedPref) {
             this.currentLanguage = this.detectLanguage();
         }
-        
+
         // Apply language immediately
         this.applyLanguage();
     }
@@ -196,10 +196,10 @@ function initPrintUtils() {
     if (typeof PrintUtils !== 'undefined') {
         printUtils = new PrintUtils();
         console.log('Print utilities initialized');
-        
+
         // Add print buttons to course player if it exists
         setTimeout(addPrintButtonsToCoursePlayer, 1000);
-        
+
         // Add print button to dashboard if it exists
         setTimeout(addPrintButtonsToDashboard, 1000);
     }
@@ -218,7 +218,7 @@ function addPrintButtonsToCoursePlayer() {
             Print Notes
         `;
         printNotesBtn.onclick = printCurrentLessonNotes;
-        
+
         const actionsDiv = lessonInfoSection.querySelector('.actions');
         if (actionsDiv) {
             actionsDiv.appendChild(printNotesBtn);
@@ -238,7 +238,7 @@ function addPrintButtonsToDashboard() {
             Print Dashboard Summary
         `;
         printDashboardBtn.onclick = printDashboardSummary;
-        
+
         dashboardStats.parentNode.insertBefore(printDashboardBtn, dashboardStats.nextSibling);
     }
 }
@@ -248,14 +248,14 @@ function printCurrentLessonNotes() {
         alert('Print utilities not loaded');
         return;
     }
-    
+
     const lessonData = {
         title: document.getElementById('lesson-title')?.textContent || 'Current Lesson',
         description: document.getElementById('lesson-description')?.textContent || 'No description available',
         courseTitle: document.querySelector('.course-card-title')?.textContent || 'Current Course',
         duration: document.getElementById('lesson-duration')?.textContent || 'N/A'
     };
-    
+
     printUtils.printLessonNotes(lessonData);
 }
 
@@ -264,7 +264,7 @@ function printDashboardSummary() {
         alert('Print utilities not loaded');
         return;
     }
-    
+
     // Get user data from auth
     if (typeof firebase !== 'undefined' && firebase.auth()) {
         const user = firebase.auth().currentUser;
@@ -272,12 +272,12 @@ function printDashboardSummary() {
             alert('Please login to print dashboard');
             return;
         }
-        
+
         const userData = {
             displayName: user.displayName,
             email: user.email
         };
-        
+
         // Get analytics data from dashboard
         const analytics = {
             totalStudyTime: parseInt(document.getElementById('study-time')?.textContent?.replace(/[^0-9]/g, '') || 0) * 3600,
@@ -286,14 +286,14 @@ function printDashboardSummary() {
             currentStreak: parseInt(document.getElementById('learning-streak')?.textContent || 0),
             longestStreak: parseInt(document.getElementById('learning-streak')?.textContent || 0) // Simplified
         };
-        
+
         printUtils.printDashboardSummary(userData, analytics);
     } else {
         alert('Firebase not available. Please login first.');
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 🌐 Initialize language detection system
     window.languageDetector.initialize();
 
@@ -336,6 +336,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleMobileMenu() {
         if (mobileMenu) {
             mobileMenu.classList.toggle('hidden');
+
+            // Toggle icons if they exist
+            const iconOpen = document.getElementById('mobile-menu-icon-open');
+            const iconClose = document.getElementById('mobile-menu-icon-close');
+            if (iconOpen && iconClose) {
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            }
         }
     }
 
@@ -354,13 +362,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Create language selector dropdown
     function createLanguageSelector(container, isMobile = false) {
         if (!container) return;
-        
+
         // Clear any existing language selector
         const existingSelector = container.querySelector('#language-selector');
         if (existingSelector) {
             existingSelector.remove();
         }
-        
+
         if (isMobile) {
             // Mobile version - simple select
             const languageHTML = `
@@ -396,9 +404,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <button class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-between ${window.languageDetector.currentLanguage === code ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : ''}"
                                         onclick="window.languageDetector.setLanguage('${code}')">
                                     <span>${name}</span>
-                                    ${window.languageDetector.currentLanguage === code ? 
-                                        '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>' : 
-                                        ''}
+                                    ${window.languageDetector.currentLanguage === code ?
+                    '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>' :
+                    ''}
                                 </button>
                             `).join('')}
                         </div>
@@ -418,10 +426,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button id="logout-btn" class="btn btn-outline">Logout</button>
                 `;
                 createLanguageSelector(userActionsDesktop, false);
-                
+
                 const logoutBtn = document.getElementById('logout-btn');
                 if (logoutBtn) {
-                    logoutBtn.addEventListener('click', function() {
+                    logoutBtn.addEventListener('click', function () {
                         if (typeof firebase !== 'undefined' && typeof firebaseServices !== 'undefined') {
                             firebaseServices.signOut()
                                 .then(() => window.location.href = './index.html')
@@ -437,10 +445,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button id="mobile-logout-btn" class="block w-full text-center btn btn-outline mb-2">Logout</button>
                 `;
                 createLanguageSelector(userActionsMobile, true);
-                
+
                 const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
                 if (mobileLogoutBtn) {
-                    mobileLogoutBtn.addEventListener('click', function() {
+                    mobileLogoutBtn.addEventListener('click', function () {
                         if (typeof firebase !== 'undefined' && typeof firebaseServices !== 'undefined') {
                             firebaseServices.signOut()
                                 .then(() => window.location.href = './index.html')
@@ -460,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 createLanguageSelector(userActionsDesktop, false);
             }
-            
+
             if (userActionsMobile) {
                 userActionsMobile.innerHTML = `
                     <a href="./auth/login.html" class="block w-full text-center btn btn-outline mb-2">Login</a>
@@ -469,14 +477,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 createLanguageSelector(userActionsMobile, true);
             }
         }
-        
+
         // Listen for language changes to update UI
-        document.addEventListener('languageChanged', function(e) {
+        document.addEventListener('languageChanged', function (e) {
             const welcomeElement = document.getElementById('welcome-message');
             if (welcomeElement) {
                 welcomeElement.textContent = window.languageDetector.getWelcomeMessage();
             }
-            
+
             // Update language selector indicators
             const langButtons = document.querySelectorAll('[onclick*="setLanguage"]');
             langButtons.forEach(btn => {
@@ -487,13 +495,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     btn.classList.remove('bg-blue-50', 'dark:bg-blue-900/20', 'text-blue-600', 'dark:text-blue-400');
                 }
             });
-            
+
             // Update select dropdowns
             const langSelects = document.querySelectorAll('select[onchange*="setLanguage"]');
             langSelects.forEach(select => {
                 select.value = e.detail.language;
             });
-            
+
             // Update language code display
             const langCodeSpans = document.querySelectorAll('#language-selector span.text-sm.font-medium');
             langCodeSpans.forEach(span => {
@@ -507,10 +515,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
     if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
 
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         if (mobileMenu && !mobileMenu.classList.contains('hidden') &&
             !mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
             mobileMenu.classList.add('hidden');
+
+            // Reset icons if they exist
+            const iconOpen = document.getElementById('mobile-menu-icon-open');
+            const iconClose = document.getElementById('mobile-menu-icon-close');
+            if (iconOpen && iconClose) {
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            }
         }
     });
 
@@ -520,7 +536,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize UI without Firebase for non-auth pages
         updateAuthUI(null);
     }
-    
+
     // Load PrintUtils script
     const script = document.createElement('script');
     script.src = 'assets/js/print-utils.js';
@@ -529,32 +545,32 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // text animation
-function textAnimation(){
-    const texts = ['Create' , 'Build' , 'Lead' ,'Succeed' , 'Grow']; 
+function textAnimation() {
+    const texts = ['Create', 'Build', 'Lead', 'Succeed', 'Grow'];
     let count = 0;
-    let index = 0; 
+    let index = 0;
     let currentText = "";
     let letter = "";
 
-    function type(){
-        if(count === texts.length){
+    function type() {
+        if (count === texts.length) {
             count = 0;
         }
         currentText = texts[count];
-        letter = currentText.slice(0 , ++index);
+        letter = currentText.slice(0, ++index);
         const textElement = document.getElementById("text");
         if (textElement) {
             textElement.textContent = letter;
         }
-        if(letter.length === currentText.length){
+        if (letter.length === currentText.length) {
             count++;
-            index = 0; 
-            setTimeout(type , 1500); //pause 
-        }else{
-            setTimeout(type , 120);
+            index = 0;
+            setTimeout(type, 1500); //pause 
+        } else {
+            setTimeout(type, 120);
         }
     }
-    
+
     // Only start animation if element exists
     if (document.getElementById("text")) {
         type();
@@ -568,23 +584,22 @@ document.addEventListener('DOMContentLoaded', textAnimation);
 function showNotification(message, type = 'success') {
     const existingNotification = document.querySelector('.notification-toast');
     if (existingNotification) existingNotification.remove();
-    
+
     const notification = document.createElement('div');
-    notification.className = `notification-toast fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 max-w-sm ${
-        type === 'success' ? 'bg-green-500' :
-        type === 'error' ? 'bg-red-500' :
-        type === 'warning' ? 'bg-yellow-500' :
-        'bg-blue-500'
-    } text-white transform transition-all duration-300 ease-out opacity-0 translate-y-2`;
-    
+    notification.className = `notification-toast fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 max-w-sm ${type === 'success' ? 'bg-green-500' :
+            type === 'error' ? 'bg-red-500' :
+                type === 'warning' ? 'bg-yellow-500' :
+                    'bg-blue-500'
+        } text-white transform transition-all duration-300 ease-out opacity-0 translate-y-2`;
+
     notification.innerHTML = `
         <div class="flex items-center justify-between">
             <div class="pr-4">${message}</div>
             <button id="notification-close" class="text-lg hover:text-gray-200 transition-colors">×</button>
         </div>`;
-    
+
     document.body.appendChild(notification);
-    
+
     // Trigger animation
     setTimeout(() => {
         notification.classList.remove('opacity-0', 'translate-y-2');
@@ -596,7 +611,7 @@ function showNotification(message, type = 'success') {
         notification.classList.add('opacity-0', 'translate-y-2');
         setTimeout(() => notification.remove(), 300);
     });
-    
+
     setTimeout(() => {
         if (notification.parentNode) {
             notification.classList.remove('opacity-100', 'translate-y-0');
@@ -608,9 +623,9 @@ function showNotification(message, type = 'success') {
 
 function formatDate(dateString) {
     const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, { 
-        year: 'numeric', 
-        month: 'long', 
+    return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit'
@@ -624,26 +639,26 @@ function formatNumber(num) {
 
 function timeAgo(dateString) {
     const seconds = Math.floor((new Date() - new Date(dateString)) / 1000);
-    
+
     if (seconds < 60) {
         return 'just now';
     }
-    
+
     const units = [
         [31536000, "year"],
-        [2592000, "month"], 
+        [2592000, "month"],
         [86400, "day"],
-        [3600, "hour"], 
+        [3600, "hour"],
         [60, "minute"]
     ];
-    
+
     for (const [sec, name] of units) {
         const val = Math.floor(seconds / sec);
         if (val >= 1) {
             return val === 1 ? `1 ${name} ago` : `${val} ${name}s ago`;
         }
     }
-    
+
     return Math.floor(seconds) + " seconds ago";
 }
 
@@ -657,12 +672,12 @@ function debounce(func, wait) {
 
 // Safely export utilities
 if (typeof window !== 'undefined') {
-    window.utils = { 
-        showNotification, 
-        formatDate, 
-        formatNumber, 
-        timeAgo, 
-        debounce 
+    window.utils = {
+        showNotification,
+        formatDate,
+        formatNumber,
+        timeAgo,
+        debounce
     };
 }
 
@@ -670,7 +685,7 @@ if (typeof window !== 'undefined') {
 function generateBarChart(data, labels, colors, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
-    
+
     if (!data || data.length === 0) {
         container.innerHTML = `
             <div class="flex flex-col items-center justify-center h-48 text-gray-400">
@@ -682,15 +697,15 @@ function generateBarChart(data, labels, colors, containerId) {
         `;
         return;
     }
-    
+
     const maxValue = Math.max(...data, 1);
     let chartHTML = `<div class="flex items-end justify-between h-48 px-2 space-x-1">`;
-    
+
     data.forEach((value, index) => {
         const heightPercent = Math.max((value / maxValue) * 90, 4); // Minimum 4% height
         const label = labels && labels[index] ? labels[index] : `Item ${index + 1}`;
         const color = colors && colors[index] ? colors[index] : 'bg-indigo-500';
-        
+
         chartHTML += `
             <div class="flex flex-col items-center flex-1">
                 <div class="flex flex-col items-center justify-end w-full h-full">
@@ -709,7 +724,7 @@ function generateBarChart(data, labels, colors, containerId) {
             </div>
         `;
     });
-    
+
     chartHTML += `</div>`;
     container.innerHTML = chartHTML;
 }
@@ -717,7 +732,7 @@ function generateBarChart(data, labels, colors, containerId) {
 function generateLineChart(data, labels, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
-    
+
     if (!data || data.length === 0) {
         container.innerHTML = `
             <div class="flex flex-col items-center justify-center h-48 text-gray-400">
@@ -729,7 +744,7 @@ function generateLineChart(data, labels, containerId) {
         `;
         return;
     }
-    
+
     // Simple SVG line chart implementation
     const maxValue = Math.max(...data, 1);
     const minValue = Math.min(...data, 0);
@@ -739,20 +754,20 @@ function generateLineChart(data, labels, containerId) {
     const padding = 40;
     const plotWidth = width - padding * 2;
     const plotHeight = height - padding * 2;
-    
+
     // Generate SVG path
     let pathData = '';
     data.forEach((value, index) => {
         const x = padding + (index / (data.length - 1 || 1)) * plotWidth;
         const y = padding + plotHeight - ((value - minValue) / range) * plotHeight;
-        
+
         if (index === 0) {
             pathData += `M ${x} ${y}`;
         } else {
             pathData += ` L ${x} ${y}`;
         }
     });
-    
+
     const svgHTML = `
         <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="w-full">
             <!-- Grid lines -->
@@ -768,27 +783,27 @@ function generateLineChart(data, labels, containerId) {
             
             <!-- Data points -->
             ${data.map((value, index) => {
-                const x = padding + (index / (data.length - 1 || 1)) * plotWidth;
-                const y = padding + plotHeight - ((value - minValue) / range) * plotHeight;
-                return `<circle cx="${x}" cy="${y}" r="4" fill="#4f46e5" stroke="white" stroke-width="2"/>`;
-            }).join('')}
+        const x = padding + (index / (data.length - 1 || 1)) * plotWidth;
+        const y = padding + plotHeight - ((value - minValue) / range) * plotHeight;
+        return `<circle cx="${x}" cy="${y}" r="4" fill="#4f46e5" stroke="white" stroke-width="2"/>`;
+    }).join('')}
             
             <!-- X-axis labels -->
             ${labels && labels.map((label, index) => {
-                const x = padding + (index / (data.length - 1 || 1)) * plotWidth;
-                return `<text x="${x}" y="${height - 5}" text-anchor="middle" class="text-xs fill-gray-500">${label}</text>`;
-            }).join('')}
+        const x = padding + (index / (data.length - 1 || 1)) * plotWidth;
+        return `<text x="${x}" y="${height - 5}" text-anchor="middle" class="text-xs fill-gray-500">${label}</text>`;
+    }).join('')}
         </svg>
     `;
-    
+
     container.innerHTML = svgHTML;
 }
 
 // Safely export chart utilities
 if (typeof window !== 'undefined') {
-    window.chartUtils = { 
-        generateBarChart, 
-        generateLineChart 
+    window.chartUtils = {
+        generateBarChart,
+        generateLineChart
     };
 }
 
@@ -796,11 +811,11 @@ if (typeof window !== 'undefined') {
 function fixLogoPath() {
     const logoLink = document.getElementById("logoLink");
     const logoImg = document.getElementById("siteLogo");
-    
+
     if (!logoLink || !logoImg) return;
-    
+
     const path = window.location.pathname;
-    
+
     if (path.includes("/auth/")) {
         // inside /auth/ folder
         logoLink.href = "../index.html";
@@ -814,9 +829,9 @@ function fixLogoPath() {
         logoLink.href = "./index.html";
         logoImg.src = "./logo.png";
     }
-    
+
     // Add error handling for broken images
-    logoImg.onerror = function() {
+    logoImg.onerror = function () {
         console.warn('Logo image failed to load, using fallback');
         this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjN0Y0NkU1IiByeD0iOCIvPgo8dGV4dCB4PSIyMCIgeT0iMjIiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSJib2xkIj5Mb2dvPC90ZXh0Pgo8L3N2Zz4K';
     };
