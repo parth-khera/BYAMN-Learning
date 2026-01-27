@@ -542,7 +542,53 @@ document.addEventListener('DOMContentLoaded', function () {
     script.src = 'assets/js/print-utils.js';
     script.onload = initPrintUtils;
     document.head.appendChild(script);
+
+    // 🔝 Initialize Scroll to Top button
+    initScrollToTop();
 });
+
+// 🔝 Scroll to Top Functionality
+function initScrollToTop() {
+    // Check if button already exists to prevent duplicates
+    if (document.querySelector('.scroll-to-top')) return;
+
+    // Create the button element
+    const scrollBtn = document.createElement('button');
+    scrollBtn.className = 'scroll-to-top';
+    scrollBtn.setAttribute('aria-label', 'Scroll to top');
+    scrollBtn.innerHTML = `
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7" />
+        </svg>
+    `;
+
+    // Append to body
+    document.body.appendChild(scrollBtn);
+
+    // Show/hide button on scroll
+    const toggleVisibility = () => {
+        if (window.scrollY > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    };
+
+    // Use debounce for performance if available
+    const handleScroll = window.utils && window.utils.debounce ?
+        window.utils.debounce(toggleVisibility, 100) :
+        toggleVisibility;
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Smooth scroll to top on click
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
 
 // text animation
 function textAnimation() {
@@ -587,9 +633,9 @@ function showNotification(message, type = 'success') {
 
     const notification = document.createElement('div');
     notification.className = `notification-toast fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 max-w-sm ${type === 'success' ? 'bg-green-500' :
-            type === 'error' ? 'bg-red-500' :
-                type === 'warning' ? 'bg-yellow-500' :
-                    'bg-blue-500'
+        type === 'error' ? 'bg-red-500' :
+            type === 'warning' ? 'bg-yellow-500' :
+                'bg-blue-500'
         } text-white transform transition-all duration-300 ease-out opacity-0 translate-y-2`;
 
     notification.innerHTML = `
